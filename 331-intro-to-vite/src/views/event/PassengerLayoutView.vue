@@ -28,12 +28,10 @@ const props = defineProps({
 
 <template>
     <div v-if="passenger">
-        <h1>{{ passenger.first_name }}</h1>
 
         <div id="nav">
         <RouterLink :to="{name: 'passenger-detail', params: { id } }">Details</RouterLink> |
-        <RouterLink :to="{name: 'passenger-register', params: { id } }">Register</RouterLink> |
-        <RouterLink :to="{name: 'passenger-edit', params: { id } }">Edit</RouterLink>
+        <RouterLink :to="{name: 'passenger-register', params: { id } }">Airline</RouterLink> |
        </div>
         
         <RouterView :passenger="passenger" ></RouterView>

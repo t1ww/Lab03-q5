@@ -5,8 +5,8 @@ export interface Passenger {
   email: string
   gender: string
   ip_address: string
-  source: string
-  destination: string
+  Source: string
+  Destination: string
   travelDate: Date
   airlineId: number
 }
