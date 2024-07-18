@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import AirlineService from '@/services/AirlineService';
 import PassengerService from '@/services/PassengerService';
@@ -13,33 +13,29 @@ const route = useRoute();
 onMounted(() => {
   const id = parseInt(route.params.id as string, 10);
   if (!isNaN(id)) {
-    AirlineService.getAirlineById(id)
+    PassengerService.getPassengerById(id)
+      .then(response => {
+        passenger.value = response.data;
+        return AirlineService.getAirlineById(response.data.airlineId);
+      })
       .then(response => {
         airline.value = response.data;
       })
       .catch(error => {
-        console.error('Failed to fetch airline details:', error);
+        console.error('Failed to fetch details:', error);
       });
-
-    PassengerService.getPassengerById(id)
-    .then(response => {
-      passenger.value = response.data;
-    })
-    .catch(error => {
-      console.error('Failed to fetch passenger details:', error)
-    });
   }
 });
 </script>
 
 <template>
-  <div v-if="airline">
-    <h1>{{ passenger?.airlineId }}</h1>
-    <p>Airline name:: {{ airline.AirlineName }}</p>
+  <div v-if="passenger && airline">
+    <h1>Airline Number {{ passenger.airlineId }}</h1>
+    <p>Airline name: {{ airline.AirlineName }}</p>
     <p>Airline email: {{ airline.email }}</p>
-    <p>Airline Addres: {{ airline.address }}</p>
+    <p>Airline address: {{ airline.address }}</p>
   </div>
   <div v-else>
-    <p>Loading airline details...</p>
+    <p>Loading details...</p>
   </div>
 </template>
