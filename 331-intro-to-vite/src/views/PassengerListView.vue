@@ -3,7 +3,7 @@ import PassengersCard from '@/components/PassengerCard.vue'
 import EventInfo from '@/components/EventInfo.vue'
 import Event from '@/types/Event'
 import { ref, onMounted, watchEffect, computed } from 'vue';
-import EventService from '@/services/EventService'
+import EventService from '@/services/PassengerService'
 import type { Axios, AxiosResponse } from 'axios';
 import type { EventItem } from '@/type';
 import { RouterLink } from 'vue-router';
@@ -41,7 +41,7 @@ watchEffect(() => {
 <template>
   <h1>Passengers</h1>
   <!--new element-->
-  <div class="events">
+  <div class="passengers">
     <PassengersCard v-for="event in events" :key="event.id" :event="event"></PassengersCard>
     <div class="panigation">
       <RouterLink :to="{name: 'passenger-list-view', query: { page: page - 1} }" rel="prev" v-if="page != 1">Prev page</RouterLink>
@@ -52,7 +52,7 @@ watchEffect(() => {
 </template>
 
 <style scoped>
-.events {
+.passengers {
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import type { EventItem } from '@/type';
-import EventService from '@/services/EventService';
+import PassengerService from '@/services/PassengerService';
 import { RouterView } from 'vue-router';
 import { useRouter } from 'vue-router';
 
@@ -12,7 +12,7 @@ const props = defineProps({
     id: String
 })
 
-    EventService.getEventById(Number(props.id))
+    PassengerService.getEventById(Number(props.id))
     .then((response)=> {
         event.value = response.data
     }).catch(error => {
