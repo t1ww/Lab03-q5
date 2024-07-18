@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import PassengerDetailView from '@/views/event/PassengerDetailView.vue'
-import PassengerEditView from '@/views/event/PassengerEditView.vue'
-import PassengerRegisterView from '@/views/event/PassengerRegisterView.vue'
+import PassengerAirlineView from '@/views/event/PassengerAirlineView.vue'
 import PassengerLayoutView from '@/views/event/PassengerLayoutView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import NetworkErrorView from '@/views/NetworkErrorView.vue'
@@ -32,15 +31,9 @@ const router = createRouter({
           props: true
         },
         {
-          path: 'edit',
-          name: 'passenger-edit',
-          component: PassengerEditView,
-          props: true
-        },
-        {
-          path: 'register',
-          name: 'passenger-register',
-          component: PassengerRegisterView,
+          path: 'airline',
+          name: 'passenger-airline',
+          component: PassengerAirlineView,
           props: true
         }
       ]

@@ -10,3 +10,9 @@ export interface Passenger {
   travelDate: Date
   airlineId: number
 }
+export interface Airline {
+  id: number
+  AirlineName: string
+  email: string
+  address: string
+}

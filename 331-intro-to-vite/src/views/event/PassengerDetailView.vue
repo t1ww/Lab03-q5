@@ -16,7 +16,7 @@ onMounted(() => {
         passenger.value = response.data;
       })
       .catch(error => {
-        // console.error('Failed to fetch passenger details:', error)
+        console.error('Failed to fetch passenger details:', error)
       });
   }
 });
