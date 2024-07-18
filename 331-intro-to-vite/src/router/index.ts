@@ -45,6 +45,11 @@ const router = createRouter({
       props: true
     },
     {
+      path: '/:catchAll(.*)',
+      name: 'notfound',
+      component: NotFoundView
+    },
+    {
       path: '/network-error',
       name: 'network-error',
       component: NetworkErrorView

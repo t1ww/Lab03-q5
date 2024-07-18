@@ -28,7 +28,11 @@ watchEffect(() => {
     })
     .catch(error => {
       console.log(error)
-      // console.error('Failed to fetch passengers:', error)
+        if (error.response && error.response.status === 404) {
+            router.push({ name: '404-resource', params: { resource: 'page' } })
+        } else {
+            router.push({ name: 'network-error' })
+        }
     })
 })
 </script>
