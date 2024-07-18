@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import PassengersCard from '@/components/PassengerCard.vue'
-import EventInfo from '@/components/EventInfo.vue'
-import Event from '@/types/Event'
+import type { Passenger } from '@/type'
 import { ref, onMounted, watchEffect, computed } from 'vue';
-import EventService from '@/services/PassengerService'
+import PassengerService from '@/services/PassengerService'
 import type { Axios, AxiosResponse } from 'axios';
-import type { EventItem } from '@/type';
 import { RouterLink } from 'vue-router';
 
-const events = ref<Event[]>(null)
-const totalEvent = ref<number>(0)
+const passengers = ref<Passenger[]>([])
+const totalPassenger = ref<number>(0)
 
 const props = defineProps({
   page: {
@@ -23,15 +21,15 @@ const props = defineProps({
 })
 
 const hasNextPage = computed(() => {
-  const totalPages = Math.ceil(totalEvent.value / props.limit)
-  return props.page < totalPages && events.value.length > 0
+  const totalPages = Math.ceil(totalPassenger.value / props.limit)
+  return props.page < totalPages && passengers.value.length > 0
 })
 
 watchEffect(() => {
-  EventService.getEvents(props.limit, props.page)
-    .then((response: AxiosResponse<EventItem[]>) => {
-      events.value = response.data
-      totalEvent.value = parseInt(response.headers['x-total-count'])
+  PassengerService.getPassengers(props.limit, props.page)
+    .then((response: AxiosResponse<Passenger[]>) => {
+      passengers.value = response.data
+      totalPassenger.value = parseInt(response.headers['x-total-count'])
     })
 })
     
@@ -42,7 +40,7 @@ watchEffect(() => {
   <h1>Passengers</h1>
   <!--new element-->
   <div class="passengers">
-    <PassengersCard v-for="event in events" :key="event.id" :event="event"></PassengersCard>
+    <PassengerCard v-for="passenger in passengers" :key="passenger.id" :passenger="passenger"></PassengerCard>
     <div class="panigation">
       <RouterLink :to="{name: 'passenger-list-view', query: { page: page - 1} }" rel="prev" v-if="page != 1">Prev page</RouterLink>
       <RouterLink :to="{name: 'passenger-list-view', query: { page: page + 1} }" rel="next" v-if="hasNextPage">Next page</RouterLink>

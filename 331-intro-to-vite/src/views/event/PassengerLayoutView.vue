@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { EventItem } from '@/type';
 import PassengerService from '@/services/PassengerService';
 import { RouterView } from 'vue-router';
 import { useRouter } from 'vue-router';
+import type { Passenger } from '@/type'
 
-const event = ref<EventItem | null> (null)
+const passenger = ref<Passenger | null> (null)
 const router = useRouter()
 
 const props = defineProps({
     id: String
 })
 
-    PassengerService.getEventById(Number(props.id))
+    PassengerService.getPassengerById(Number(props.id))
     .then((response)=> {
-        event.value = response.data
+        passenger.value = response.data
     }).catch(error => {
         console.log(error)
         if (error.response && error.response.status === 404) {
@@ -27,8 +27,8 @@ const props = defineProps({
 </script>
 
 <template>
-    <div v-if="event">
-        <h1>{{ event.title }}</h1>
+    <div v-if="passenger">
+        <h1>{{ passenger.first_name }}</h1>
 
         <div id="nav">
         <RouterLink :to="{name: 'passenger-detail', params: { id } }">Details</RouterLink> |
@@ -36,6 +36,6 @@ const props = defineProps({
         <RouterLink :to="{name: 'passenger-edit', params: { id } }">Edit</RouterLink>
        </div>
         
-        <RouterView :event="event" ></RouterView>
+        <RouterView :passenger="passenger" ></RouterView>
     </div>
 </template>

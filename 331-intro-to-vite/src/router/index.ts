@@ -17,7 +17,7 @@ const router = createRouter({
       name: 'passenger-list-view',
       component: PassengerListView,
       props: (route) => ({
-        page: parseInt(route.query?.page as string || '1'), limit: 2})
+        page: parseInt(route.query?.page as string || '1'), limit: 3})
     },
     {
       path: '/about',
@@ -60,11 +60,6 @@ const router = createRouter({
       name: '404-resource',
       component: NotFoundView,
       props: true
-    },
-    {
-      path: '/:catchAll(.*)',
-      name: 'notfound',
-      component: NotFoundView
     },
     {
       path: '/network-error',

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { EventItem } from '@/type';
+import type { Passenger } from '@/type';
 import type { Prototype } from 'vue';
 
 defineProps({
     event: {
-        type: Object as Prototype<EventItem>,
+        type: Object as Prototype<Passenger>,
         required: true
     }
 })

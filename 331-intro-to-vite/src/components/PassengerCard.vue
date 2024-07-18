@@ -1,29 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import Event  from '@/types/Event'
+import type {Passenger}  from '@/type'
 import { RouterLink } from 'vue-router';
 defineProps<{
-  event: Event
+  passenger: Passenger
 }>()
-// const event = ref({
-//   id: 5928101,
-//   category: 'animal welfare',
-//   title: 'Cat Adoption Day',
-//   description: 'Find your new feline friend at this event.',
-//   location: 'Meow Town',
-//   date: 'January 28, 2022',
-//   time: '12:00',
-//   petsAllowed: true,
-//   organizer: 'Kat Laydee'
-// })
+
 </script>
 
 <template>
-  <RouterLink class="passenger-link" :to="{name: 'passenger-detail', params:{id: event?.id}}">
+  <RouterLink class="passenger-link" :to="{name: 'passenger-detail', params:{id: passenger?.id}}">
     <div class="passenger-class">
       <div class="passenger-card">
-        <h2>{{ event?.title }}</h2>
-        <span>@{{ event?.time }} on {{ event?.date }}</span>
+        <h2>{{ passenger?.first_name }} {{ passenger?.last_name }}</h2>
+        <span>{{ passenger?.gender }} on {{ passenger?.email }}</span>
       </div>
     </div>
 </RouterLink>
