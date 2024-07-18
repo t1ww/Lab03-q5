@@ -18,7 +18,7 @@ const props = defineProps({
     }).catch(error => {
         console.log(error)
         if (error.response && error.response.status === 404) {
-            router.push({ name: '404-resource', params: { resource: 'event' } })
+            router.push({ name: '404-resource', params: { resource: 'passenger' } })
         } else {
             router.push({ name: 'network-error' })
         }

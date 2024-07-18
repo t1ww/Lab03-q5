@@ -3,7 +3,7 @@ import AboutView from '@/views/AboutView.vue'
 import StudentListView from '@/views/StudentListView.vue'
 import PassengerDetailView from '@/views/event/PassengerDetailView.vue'
 import PassengerEditView from '@/views/event/PassengerEditView.vue'
-import PassengerRegister from '@/views/event/PassengerRegisterView.vue'
+import PassengerRegisterView from '@/views/event/PassengerRegisterView.vue'
 import PassengerLayoutView from '@/views/event/PassengerLayoutView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import NetworkErrorView from '@/views/NetworkErrorView.vue'
@@ -16,8 +16,10 @@ const router = createRouter({
       path: '/',
       name: 'passenger-list-view',
       component: PassengerListView,
-      props: (route) => ({
-        page: parseInt(route.query?.page as string || '1'), limit: 3})
+      props: route => ({
+        page: parseInt(route.query.page as string || '1', 10),
+        limit: 3
+      })
     },
     {
       path: '/about',
@@ -30,30 +32,30 @@ const router = createRouter({
       component: StudentListView
     },
     {
-      path: '/event/:id',
+      path: '/passenger/:id',
       name: 'passenger-layout',
-      props: true,
       component: PassengerLayoutView,
-        children: [
-          {
-            path: '',
-            name: 'passenger-detail',
-            props: true,
-            component: PassengerDetailView
-          },
-          {
-            path: 'edit',
-            name: 'passenger-edit',
-            props: true,
-            component: PassengerEditView
-          },
-          {
-            path: 'register',
-            name: 'passenger-register',
-            props: true,
-            component: PassengerRegister
-          }
-        ] 
+      props: true,
+      children: [
+        {
+          path: '',
+          name: 'passenger-detail',
+          component: PassengerDetailView,
+          props: true
+        },
+        {
+          path: 'edit',
+          name: 'passenger-edit',
+          component: PassengerEditView,
+          props: true
+        },
+        {
+          path: 'register',
+          name: 'passenger-register',
+          component: PassengerRegisterView,
+          props: true
+        }
+      ]
     },
     {
       path: '/404/:resource',
@@ -66,7 +68,6 @@ const router = createRouter({
       name: 'network-error',
       component: NetworkErrorView
     }
-    
   ]
 })
 

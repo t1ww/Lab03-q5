@@ -12,5 +12,5 @@
 <template>
     <h1>Oop!</h1>
     <h3>The {{resource}} you're looking for is not here.</h3>
-    <RouterLink :to="{name: 'even-list'}" >Back to home page</RouterLink>
+    <RouterLink :to="{name: 'passenger-list-view'}" >Back to home page</RouterLink>
 </template>

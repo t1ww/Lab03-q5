@@ -1,21 +1,19 @@
 <script setup lang="ts">
-import type {Passenger}  from '@/type'
+import type { Passenger } from '@/type'
 import { RouterLink } from 'vue-router';
-defineProps<{
+
+const props = defineProps<{
   passenger: Passenger
 }>()
-
 </script>
 
 <template>
-  <RouterLink class="passenger-link" :to="{name: 'passenger-detail', params:{id: passenger?.id}}">
-    <div class="passenger-class">
-      <div class="passenger-card">
-        <h2>{{ passenger?.first_name }} {{ passenger?.last_name }}</h2>
-        <span>{{ passenger?.gender }} on {{ passenger?.email }}</span>
-      </div>
+  <RouterLink class="passenger-link" :to="{ name: 'passenger-detail', params: { id: props.passenger.id } }">
+    <div class="passenger-card">
+      <h2>{{ props.passenger.first_name }} {{ props.passenger.last_name }}</h2>
+      <span>{{ props.passenger.gender }} on {{ props.passenger.email }}</span>
     </div>
-</RouterLink>
+  </RouterLink>
 </template>
 
 <style scoped>
