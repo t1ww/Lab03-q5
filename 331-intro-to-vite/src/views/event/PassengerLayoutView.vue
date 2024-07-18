@@ -31,9 +31,9 @@ const props = defineProps({
         <h1>{{ event.title }}</h1>
 
         <div id="nav">
-        <RouterLink :to="{name: 'event-detail', params: { id } }">Details</RouterLink> |
-        <RouterLink :to="{name: 'event-register', params: { id } }">Register</RouterLink> |
-        <RouterLink :to="{name: 'event-edit', params: { id } }">Edit</RouterLink>
+        <RouterLink :to="{name: 'passenger-detail', params: { id } }">Details</RouterLink> |
+        <RouterLink :to="{name: 'passenger-register', params: { id } }">Register</RouterLink> |
+        <RouterLink :to="{name: 'passenger-edit', params: { id } }">Edit</RouterLink>
        </div>
         
         <RouterView :event="event" ></RouterView>

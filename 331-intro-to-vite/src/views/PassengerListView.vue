@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import EventCard from '@/components/EventCard.vue'
+import PassengersCard from '@/components/PassengerCard.vue'
 import EventInfo from '@/components/EventInfo.vue'
 import Event from '@/types/Event'
 import { ref, onMounted, watchEffect, computed } from 'vue';
@@ -16,19 +16,19 @@ const props = defineProps({
     type: Number,
     required: true
   },
-  eventsPerPage: {
+  limit: {
     type: Number,
     required: true
   }
 })
 
 const hasNextPage = computed(() => {
-  const totalPages = Math.ceil(totalEvent.value / props.eventsPerPage)
+  const totalPages = Math.ceil(totalEvent.value / props.limit)
   return props.page < totalPages && events.value.length > 0
 })
 
 watchEffect(() => {
-  EventService.getEvents(props.eventsPerPage, props.page)
+  EventService.getEvents(props.limit, props.page)
     .then((response: AxiosResponse<EventItem[]>) => {
       events.value = response.data
       totalEvent.value = parseInt(response.headers['x-total-count'])
@@ -39,13 +39,13 @@ watchEffect(() => {
 </script>
 
 <template>
-  <h1>Event for good</h1>
+  <h1>Passengers</h1>
   <!--new element-->
   <div class="events">
-    <EventCard v-for="event in events" :key="event.id" :event="event"></EventCard>
+    <PassengersCard v-for="event in events" :key="event.id" :event="event"></PassengersCard>
     <div class="panigation">
-      <RouterLink :to="{name: 'event-list-view', query: { page: page - 1} }" rel="prev" v-if="page != 1">Prev page</RouterLink>
-      <RouterLink :to="{name: 'event-list-view', query: { page: page + 1} }" rel="next" v-if="hasNextPage">Next page</RouterLink>
+      <RouterLink :to="{name: 'passenger-list-view', query: { page: page - 1} }" rel="prev" v-if="page != 1">Prev page</RouterLink>
+      <RouterLink :to="{name: 'passenger-list-view', query: { page: page + 1} }" rel="next" v-if="hasNextPage">Next page</RouterLink>
     </div>
 
   </div>
