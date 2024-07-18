@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import AboutView from '@/views/AboutView.vue'
-import StudentListView from '@/views/StudentListView.vue'
 import PassengerDetailView from '@/views/event/PassengerDetailView.vue'
 import PassengerEditView from '@/views/event/PassengerEditView.vue'
 import PassengerRegisterView from '@/views/event/PassengerRegisterView.vue'
@@ -20,16 +18,6 @@ const router = createRouter({
         page: parseInt(route.query.page as string || '1', 10),
         limit: 3
       })
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: AboutView
-    },
-    {
-      path: '/student',
-      name: 'student',
-      component: StudentListView
     },
     {
       path: '/passenger/:id',

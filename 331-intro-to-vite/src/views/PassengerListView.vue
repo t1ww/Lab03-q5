@@ -8,6 +8,7 @@ import { RouterLink, useRouter } from 'vue-router';
 
 const passengers = ref<Passenger[]>([])
 const totalPassenger = ref<number>(0)
+const router = useRouter()
 
 const props = defineProps<{
   page: number;
@@ -26,7 +27,8 @@ watchEffect(() => {
       totalPassenger.value = parseInt(response.headers['x-total-count'], 10)
     })
     .catch(error => {
-      console.error('Failed to fetch passengers:', error)
+      console.log(error)
+      // console.error('Failed to fetch passengers:', error)
     })
 })
 </script>
