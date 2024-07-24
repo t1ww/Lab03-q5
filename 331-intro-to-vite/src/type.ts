@@ -16,3 +16,9 @@ export interface Airline {
   email: string
   address: string
 }
+export interface MessageState {
+  message: string
+}
+export interface PassengerState {
+  event: Passenger | null
+}
