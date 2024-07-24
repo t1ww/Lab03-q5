@@ -1,25 +1,14 @@
 <!-- components/PassengerDetail.vue -->
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
-import PassengerService from '@/services/PassengerService';
+import {type PropType } from 'vue';
 import type { Passenger } from '@/type';
 
-const passenger = ref<Passenger | null>(null);
-const route = useRoute();
-
-onMounted(() => {
-  const id = parseInt(route.params.id as string, 10);
-  if (!isNaN(id)) {
-    PassengerService.getPassengerById(id)
-      .then(response => {
-        passenger.value = response.data;
-      })
-      .catch(error => {
-        console.error('Failed to fetch passenger details:', error)
-      });
-  }
-});
+defineProps({
+    passenger: {
+        type: Object as PropType<Passenger>,
+        required: true
+    }
+})
 </script>
 
 <template>
