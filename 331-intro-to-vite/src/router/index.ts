@@ -17,8 +17,8 @@ const router = createRouter({
       path: '/',
       name: 'passenger-list-view',
       component: PassengerListView,
-      props: route => ({
-        page: parseInt(route.query.page as string || '1', 10),
+      props: (route) => ({
+        page: parseInt((route.query.page as string) || '1', 10),
         limit: 3
       })
     },
@@ -29,17 +29,18 @@ const router = createRouter({
       props: true,
       beforeEnter: (to) => {
         const id = parseInt(to.params.id as string)
-          const passengerStore = usePassengerStore()
-          return PassengerService.getPassengerById(Number(id))
-          .then((response)=> {
+        const passengerStore = usePassengerStore()
+        return PassengerService.getPassengerById(Number(id))
+          .then((response) => {
             passengerStore.setPassenger(response.data)
-          }).catch(error => {
-              console.log(error)
-              if (error.response && error.response.status === 404) {
-                  router.push({ name: '404-resource', params: { resource: 'passenger' } })
-              } else {
-                  router.push({ name: 'network-error' })
-              }
+          })
+          .catch((error) => {
+            console.log(error)
+            if (error.response && error.response.status === 404) {
+              router.push({ name: '404-resource', params: { resource: 'passenger' } })
+            } else {
+              router.push({ name: 'network-error' })
+            }
           })
       },
       children: [
@@ -47,13 +48,13 @@ const router = createRouter({
           path: '',
           name: 'passenger-detail',
           component: PassengerDetailView,
-          props: true,
+          props: true
         },
         {
           path: 'airline',
           name: 'passenger-airline',
           component: PassengerAirlineView,
-          props: true,
+          props: true
         },
         {
           path: 'edit',
@@ -83,9 +84,9 @@ const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
-    } else { 
+    } else {
       return { top: 0 }
-     }
+    }
   }
 })
 

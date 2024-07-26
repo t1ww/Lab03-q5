@@ -1,13 +1,13 @@
 <!-- components/PassengerDetail.vue -->
 <script setup lang="ts">
-import {type PropType } from 'vue';
-import type { Passenger } from '@/type';
+import { type PropType } from 'vue'
+import type { Passenger } from '@/type'
 
 defineProps({
-    passenger: {
-        type: Object as PropType<Passenger>,
-        required: true
-    }
+  passenger: {
+    type: Object as PropType<Passenger>,
+    required: true
+  }
 })
 </script>
 
