@@ -1,5 +1,4 @@
 import axios, { type AxiosResponse } from 'axios'
-import type { Passenger } from '@/type'
 import type { Airline } from '@/type'
 
 const apiClient = axios.create({

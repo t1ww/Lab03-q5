@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
-import { useRoute } from 'vue-router';
-import AirlineService from '@/services/AirlineService';
-import PassengerService from '@/services/PassengerService';
-import type { Airline } from '@/type';
-import type { Passenger } from '@/type';
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import AirlineService from '@/services/AirlineService'
+import PassengerService from '@/services/PassengerService'
+import type { Airline } from '@/type'
+import type { Passenger } from '@/type'
 
-const airline = ref<Airline | null>(null);
-const passenger = ref<Passenger | null>(null);
-const route = useRoute();
+const airline = ref<Airline | null>(null)
+const passenger = ref<Passenger | null>(null)
+const route = useRoute()
 
 onMounted(() => {
-  const id = parseInt(route.params.id as string, 10);
+  const id = parseInt(route.params.id as string, 10)
   if (!isNaN(id)) {
     PassengerService.getPassengerById(id)
-      .then(response => {
-        passenger.value = response.data;
-        return AirlineService.getAirlineById(response.data.airlineId);
+      .then((response) => {
+        passenger.value = response.data
+        return AirlineService.getAirlineById(response.data.airlineId)
       })
-      .then(response => {
-        airline.value = response.data;
+      .then((response) => {
+        airline.value = response.data
       })
-      .catch(error => {
-        console.error('Failed to fetch details:', error);
-      });
+      .catch((error) => {
+        console.error('Failed to fetch details:', error)
+      })
   }
-});
+})
 </script>
 
 <template>

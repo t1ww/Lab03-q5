@@ -5,6 +5,10 @@ import PassengerLayoutView from '@/views/event/PassengerLayoutView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import NetworkErrorView from '@/views/NetworkErrorView.vue'
 import PassengerListView from '@/views/PassengerListView.vue'
+import PassengerEditView from '@/views/event/PassengerEditView.vue'
+import nProgress from 'nprogress'
+import { usePassengerStore } from '@/stores/passenger'
+import PassengerService from '@/services/PassengerService'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,8 +17,8 @@ const router = createRouter({
       path: '/',
       name: 'passenger-list-view',
       component: PassengerListView,
-      props: route => ({
-        page: parseInt(route.query.page as string || '1', 10),
+      props: (route) => ({
+        page: parseInt((route.query.page as string) || '1', 10),
         limit: 3
       })
     },
@@ -23,6 +27,22 @@ const router = createRouter({
       name: 'passenger-layout',
       component: PassengerLayoutView,
       props: true,
+      beforeEnter: (to) => {
+        const id = parseInt(to.params.id as string)
+        const passengerStore = usePassengerStore()
+        return PassengerService.getPassengerById(Number(id))
+          .then((response) => {
+            passengerStore.setPassenger(response.data)
+          })
+          .catch((error) => {
+            console.log(error)
+            if (error.response && error.response.status === 404) {
+              router.push({ name: '404-resource', params: { resource: 'passenger' } })
+            } else {
+              router.push({ name: 'network-error' })
+            }
+          })
+      },
       children: [
         {
           path: '',
@@ -34,6 +54,12 @@ const router = createRouter({
           path: 'airline',
           name: 'passenger-airline',
           component: PassengerAirlineView,
+          props: true
+        },
+        {
+          path: 'edit',
+          name: 'passenger-edit',
+          component: PassengerEditView,
           props: true
         }
       ]
@@ -54,7 +80,22 @@ const router = createRouter({
       name: 'network-error',
       component: NetworkErrorView
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { top: 0 }
+    }
+  }
+})
+
+router.beforeEach(() => {
+  nProgress.start()
+})
+
+router.afterEach(() => {
+  nProgress.done()
 })
 
 export default router
